@@ -7,6 +7,10 @@ Mappings:
     us-west-2:
       AMZN2LINUXHVM: ami-0ba1cbe49a77ed436
       InstanceType: t3.nano
+    us-east-1:
+      AMZN2LINUXHVM: ami-0c7db594530970943
+      InstanceType: t3.nano
+
   AccountMappings:
     "977054074728": 
       App: test
@@ -88,3 +92,10 @@ Resources:
       # - Key: Owner
       #   Value: !FindInMap [AccountMappings, !Ref "AWS::AccountId", Email]
   
+  ParameterKey=EC2KeyPair ,ParameterValue=ec2_for_terraform
+  ParameterKey=EnvironmentName , ParameterValue=PROD
+  ParameterKey=InstanceType , ParameterValue=t3.nano
+  ParameterKey=MotsID ,ParameterValue=1234
+
+  ParameterKey=ProjectCode , ParameterValue=dtv-aws-account-prod
+  ParameterKey=VPCID , ParameterValue=vpc-0500876f8f35e70ae
