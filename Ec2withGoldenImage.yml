@@ -1,4 +1,3 @@
-### This template will launch an EC2 instance with private golden image AMI.
 AWSTemplateFormatVersion: 2010-09-09
 Description: Creates an EC2 instance with private golden image AMI.
 Mappings:
@@ -92,4 +91,7 @@ Resources:
         Value: !Sub aws-${MotsID}-${ProjectCode}-vpc-${AWS::Region}-${EnvironmentName}01
       # - Key: Owner
       #   Value: !FindInMap [AccountMappings, !Ref "AWS::AccountId", Email]
-  
+Outputs:
+  goldenImage:
+    Description: "DNS of Instance"
+    Value: !Ref EC2Instance.PrivateDnsName  
