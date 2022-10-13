@@ -92,10 +92,3 @@ Resources:
       # - Key: Owner
       #   Value: !FindInMap [AccountMappings, !Ref "AWS::AccountId", Email]
   
-  ParameterKey=EC2KeyPair ,ParameterValue=ec2_for_terraform
-  ParameterKey=EnvironmentName , ParameterValue=PROD
-  ParameterKey=InstanceType , ParameterValue=t3.nano
-  ParameterKey=MotsID ,ParameterValue=1234
-
-  ParameterKey=ProjectCode , ParameterValue=dtv-aws-account-prod
-  ParameterKey=VPCID , ParameterValue=vpc-0500876f8f35e70ae
