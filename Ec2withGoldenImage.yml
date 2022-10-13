@@ -19,17 +19,17 @@ Mappings:
 Parameters:
   EnvironmentName:
     Type: String
-    Default: PROD
+    Default: NONPROD
     Description: "Name of Environment"
     AllowedValues: 
     - PROD
     - NONPROD
   MotsID: 
-    Default: 1234
+    Default: 13Oct22
     Description: MotsID
     Type: Number
   ProjectCode: 
-    Default: dtv-aws-account-prod
+    Default: dtv-aws-DemoToRob-nprod
     Description: "Project Code / Group"
     Type: String
   VPCID:
@@ -89,9 +89,11 @@ Resources:
       #   Value: !Ref EnvironmentName
       - Key: Name
         Value: !Sub aws-${MotsID}-${ProjectCode}-vpc-${AWS::Region}-${EnvironmentName}01
+      # - Key: Name
+      #   Value: 
       # - Key: Owner
       #   Value: !FindInMap [AccountMappings, !Ref "AWS::AccountId", Email]
 Outputs:
   goldenImage:
     Description: "DNS of Instance"
-    Value: !GetAtt EC2Instance.PublicDnsName  
+    Value: !GetAtt EC2Instance.PrivateDnsName  
