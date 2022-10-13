@@ -25,7 +25,7 @@ Parameters:
     - PROD
     - NONPROD
   MotsID: 
-    Default: 13Oct22
+    Default: 131022
     Description: MotsID
     Type: Number
   ProjectCode: 
