@@ -1,3 +1,4 @@
+### This template will launch an EC2 instance with private golden image AMI.
 AWSTemplateFormatVersion: 2010-09-09
 Description: Creates an EC2 instance with private golden image AMI.
 Mappings:
