@@ -94,4 +94,4 @@ Resources:
 Outputs:
   goldenImage:
     Description: "DNS of Instance"
-    Value: !Ref EC2Instance.PrivateDnsName  
+    Value: !Ref EC2Instance  
