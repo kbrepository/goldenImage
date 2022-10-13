@@ -1,0 +1,90 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Creates an EC2 instance with private golden image AMI.
+Mappings:
+  AWSAMIRegionMap:
+    AMI:
+      AMZN2LINUXHVM: Shared-golden-eks-ami-from-deploymentaccount 2022-01-11T17-48-57.727Z
+    us-west-2:
+      AMZN2LINUXHVM: ami-0ba1cbe49a77ed436
+      InstanceType: t3.nano
+  AccountMappings:
+    "977054074728": 
+      App: test
+      Email: test@.com
+      Component: ec2
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: PROD
+    Description: "Name of Environment"
+    AllowedValues: 
+    - PROD
+    - NONPROD
+  MotsID: 
+    Default: 1234
+    Description: MotsID
+    Type: Number
+  ProjectCode: 
+    Default: dtv-aws-account-prod
+    Description: "Project Code / Group"
+    Type: String
+  VPCID:
+    Default: ''
+    Description: "Please select the VPC ID"
+    Type: AWS::EC2::VPC::Id
+  EC2KeyPair:
+    Description: Key Name for Instance
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: ''
+  InstanceType:
+    Description:  EC2 instance type
+    Type: String
+    Default: t3.nano
+
+Resources:
+  # InstanceSecurityGroup:
+  #   Type: AWS::EC2::SecurityGroup
+  #   Properties:
+  #     GroupDescription: Allow http to client host
+  #     VpcId: !Ref VPCID
+  #     SecurityGroupIngress:
+  #     - IpProtocol: tcp
+  #       FromPort: 80
+  #       ToPort: 80
+  #       CidrIp: 0.0.0.0/0
+  #     SecurityGroupEgress:
+  #     - IpProtocol: tcp
+  #       FromPort: 80
+  #       ToPort: 80
+  #       CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    # DependsOn: InstanceSecurityGroup
+    Properties:
+      ImageId: 
+        !FindInMap 
+        - AWSAMIRegionMap
+        - !Ref AWS::Region
+        - AMZN2LINUXHVM
+      KeyName: !Ref EC2KeyPair
+      InstanceType: 
+        !FindInMap 
+        - AWSAMIRegionMap
+        - !Ref AWS::Region
+        - InstanceType
+      ### Create Security Group Resource
+      # SecurityGroups:
+      # - Fn::GetAtt:
+      #   - InstanceSecurityGroup
+      #   - GroupId
+      # SubnetId: 
+      #   Fn::ImportValue: !Sub "${EnvironmentName}-${AWS::AccountId}-PublicSubnet1AZ1"
+      Tags:
+      # - Key: ENV
+      #   Value: !Ref EnvironmentName
+      - Key: Name
+        Value: !Sub aws-${MotsID}-${ProjectCode}-vpc-${AWS::Region}-${EnvironmentName}01
+      # - Key: Owner
+      #   Value: !FindInMap [AccountMappings, !Ref "AWS::AccountId", Email]
+  
